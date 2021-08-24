@@ -1,9 +1,13 @@
 AWSTemplateFormatVersion: 2010-09-09
 Description: |
-   CloudFormation Template for Roman Numerals Converter Application. This template creates Python Flask Web Application on Amazon Linux 2 (ami-0c2b8ca1dad447f8a) EC2 Instance with custom security group allowing http connections on port 80 and SSH connection on port 22. Roman Numerals Converter Application is downloaded from Github repository, then installed on Flask.
+   CloudFormation Template for Roman Numerals Converter Application. 
+   This template creates Python Flask Web Application on Amazon Linux 2 
+   (ami-0c2b8ca1dad447f8a) EC2 Instance with custom security group allowing 
+   http connections on port 80 and SSH connection on port 22. Roman Numerals Converter 
+   Application is downloaded from Github repository, then installed on Flask.
 Parameters:
   KeyNameProject:
-    Description: Enter the name of your Key Pair for SSH connections. Tokyo Olympics is very exciting.
+    Description: Enable HTTP for Flask Web Server and SSH port to secure reach to my EC2
     Type: AWS::EC2::KeyPair::KeyName
     ConstraintDescription : Must be the name of an existing EC2 KeyPair.
 
@@ -36,11 +40,11 @@ Resources:
         yum install python3 -y
         pip3 install flask
         cd /home/ec2-user
-        wget https://raw.githubusercontent.com/serdarcw/my-repository/master/Project-001-Roman-Numerals-Converter/app.py
+        wget https://raw.githubusercontent.com/yasemingonen/Roman-Numerals-Converter/main/app.py
         mkdir templates
         cd templates
-        wget https://raw.githubusercontent.com/serdarcw/my-repository/master/Project-001-Roman-Numerals-Converter/templates/index.html
-        wget https://raw.githubusercontent.com/serdarcw/my-repository/master/Project-001-Roman-Numerals-Converter/templates/result.html
+        wget https://raw.githubusercontent.com/yasemingonen/Roman-Numerals-Converter/main/templates/index.html
+        wget https://raw.githubusercontent.com/yasemingonen/Roman-Numerals-Converter/main/templates/result.html
         cd ..
         python3 app.py
 
@@ -54,6 +58,3 @@ Outputs:
       - http://${PublicAddress}
       - PublicAddress: !GetAtt WebServerHost.PublicDnsName
     Description: Roman Numerals Converter Application URL
-
-
-    ec2-instance
