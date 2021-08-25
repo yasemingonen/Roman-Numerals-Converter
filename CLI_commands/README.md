@@ -20,26 +20,26 @@ aws configure
 
 ```bash
 aws ec2 create-security-group \
-    --group-name roman_numbers_sec_grp \
+    --group-name roman_numbers_sec_grp_yasemin \
     --description "This Sec Group is to allow ssh and http from anywhere"
 ```
 
 - We can check the security Group with these commands
 ```bash
-aws ec2 describe-security-groups --group-names roman_numbers_sec_grp
+aws ec2 describe-security-groups --group-names roman_numbers_sec_grp_yasemin
 ```
 
 2. Create Rules of security Group
 
 ```bash
 aws ec2 authorize-security-group-ingress \
-    --group-name roman_numbers_sec_grp \
+    --group-name roman_numbers_sec_grp_yasemin \
     --protocol tcp \
     --port 22 \
     --cidr 0.0.0.0/0
 
 aws ec2 authorize-security-group-ingress \
-    --group-name roman_numbers_sec_grp \
+    --group-name roman_numbers_sec_grp_yasemin \
     --protocol tcp \
     --port 80 \
     --cidr 0.0.0.0/0
@@ -74,10 +74,10 @@ aws ec2 run-instances \
     --image-id $LATEST_AMI \
     --count 1 \
     --instance-type t2.micro \
-    --key-name serdar \
-    --security-groups roman_numbers_sec_grp \
+    --key-name ec2_key2 \  #this is your key.pem file name
+    --security-groups roman_numbers_sec_grp_yasemin \
     --tag-specifications 'ResourceType=instance,Tags=[{Key=Name,Value=roman_numbers}]'
-    --user-data file:///home/ec2-user/userdata.sh
+    --user-data file:///home/ec2-user/userdata.sh  #if you connet remote ssh connection ec2
 ```
 
 - To see the each instances Ip we'll use describe instance CLI command
@@ -98,5 +98,5 @@ aws ec2 terminate-instances --instance-ids <We have already learned this id with
 ```
 - To delete security groups
 ```bash
-aws ec2 delete-security-group --group-name roman_numbers_sec_grp
+aws ec2 delete-security-group --group-name roman_numbers_sec_grp_yasemin
 ```
